@@ -4,6 +4,8 @@ import { persist } from 'zustand/middleware';
 interface LoveQuestState {
   readLetters: string[];
   markLetterAsRead: (id: string) => void;
+  dailyMessageCache: { date: string; text: string } | null;
+  setDailyMessageCache: (cache: { date: string; text: string }) => void;
 }
 
 export const useLoveQuestStore = create<LoveQuestState>()(
@@ -16,6 +18,8 @@ export const useLoveQuestStore = create<LoveQuestState>()(
             ? state.readLetters
             : [...state.readLetters, id],
         })),
+      dailyMessageCache: null,
+      setDailyMessageCache: (cache) => set({ dailyMessageCache: cache }),
     }),
     {
       name: 'love-quest-storage',

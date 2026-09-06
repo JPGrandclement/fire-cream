@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { dailyMessages } from "../data/dailyMessages";
+import { useLoveQuestStore } from "../store/useLoveQuestStore";
 
 export function useDailyMessage() {
-  const [message, setMessage] = useState<string>("");
+  const { dailyMessageCache, setDailyMessageCache } = useLoveQuestStore();
+  const now = new Date();
+  const today = now.toDateString();
 
   useEffect(() => {
-    const now = new Date();
+    if (dailyMessageCache && dailyMessageCache.date === today) {
+      return;
+    }
+
     const dayOfYear = Math.floor(
       (now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) /
         (1000 * 60 * 60 * 24)
@@ -14,22 +20,11 @@ export function useDailyMessage() {
     const index = dayOfYear % dailyMessages.length;
     const dailyMessage = dailyMessages[index];
     
-    // Check cache
-    const cached = localStorage.getItem("daily-message");
-    if (cached) {
-      const { date, text } = JSON.parse(cached);
-      if (date === now.toDateString()) {
-        setMessage(text);
-        return;
-      }
-    }
-    
-    setMessage(dailyMessage);
-    localStorage.setItem("daily-message", JSON.stringify({
-      date: now.toDateString(),
+    setDailyMessageCache({
+      date: today,
       text: dailyMessage
-    }));
-  }, []);
+    });
+  }, [dailyMessageCache, today, now, setDailyMessageCache]);
 
-  return message;
+  return dailyMessageCache?.text || "";
 }

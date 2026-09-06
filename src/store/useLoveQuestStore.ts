@@ -10,7 +10,7 @@ export const useLoveQuestStore = create<LoveQuestState>()(
   persist(
     (set) => ({
       readLetters: [],
-      markLetterAsRead: (id) =>
+      markLetterAsRead: (id: string) =>
         set((state) => ({
           readLetters: state.readLetters.includes(id)
             ? state.readLetters

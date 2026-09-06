@@ -25,7 +25,8 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-parallax-tilt": "^1.7.341",
-    "react-router-dom": "^7.18.3"
+    "react-router-dom": "^7.18.3",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",

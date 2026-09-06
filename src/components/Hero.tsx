@@ -15,7 +15,8 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
-        Une phrase d'intro à personnaliser — le ton que tu veux donner à la quête.
+        Une quête à travers nos souvenirs, nos lettres, et tout ce qui nous
+        attend encore.
       </motion.p>
     </section>
   );

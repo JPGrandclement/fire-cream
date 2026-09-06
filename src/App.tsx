@@ -1,29 +1,32 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './index.css';
-import { Timeline } from './Timeline';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ContextualCursor } from "./components/ContextualCursor";
+import { NavCapsule } from "./components/NavCapsule";
+import { SealReveal } from "./components/SealReveal";
+import { Hero } from "./components/Hero";
+import { Timeline } from "./components/Timeline";
+import { useLenis } from "./lib/useLenis";
 
-const Layout = ({ children }: { children: React.ReactNode }) => (
-  <div className="layout-container">
-    <nav className="nav">
-      <Link to="/">Accueil</Link>
-      <Link to="/timeline">Timeline</Link>
-    </nav>
-    <main>{children}</main>
-  </div>
+const Home = () => (
+  <SealReveal>
+    <Hero />
+  </SealReveal>
 );
 
-const Home = () => <h1>Bienvenue sur Love Quest</h1>;
-
 export default function App() {
+  useLenis();
+
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/timeline" element={<Timeline />} />
-        </Routes>
-      </Layout>
+      <div className="layout-container">
+        <ContextualCursor />
+        <NavCapsule />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/timeline" element={<Timeline />} />
+          </Routes>
+        </main>
+      </div>
     </Router>
   );
 }

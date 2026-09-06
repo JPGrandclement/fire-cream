@@ -1,0 +1,122 @@
+/* ================================
+   AJOUTS V3 — à coller à la fin de ton index.css existant
+   ================================ */
+
+/* NAV CAPSULE — remplace .nav, motif "dock" flottant plutôt que barre pleine largeur */
+.nav-capsule {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(243, 234, 217, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-thread);
+  border-radius: 999px;
+  transition: padding 0.4s var(--ease-out), top 0.4s var(--ease-out);
+}
+
+.nav-capsule--compact {
+  padding: 6px;
+  top: 16px;
+}
+
+.nav-capsule a {
+  position: relative;
+  padding: 8px 18px;
+  border-radius: 999px;
+  color: var(--color-ink-soft);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1;
+  transition: color 0.3s var(--ease-out);
+}
+
+.nav-capsule a.active {
+  color: var(--color-parchment);
+}
+
+.nav-capsule a.active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-seal);
+  border-radius: 999px;
+  z-index: -1;
+}
+
+/* CURSEUR CONTEXTUEL */
+.cursor {
+  position: fixed;
+  top: -12px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-seal);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--color-parchment);
+}
+
+@media (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
+/* SCEAU DE CIRE — moment interactif signature */
+.seal {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--color-seal);
+  border: none;
+  color: var(--color-parchment);
+  font-family: var(--font-display);
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.seal:hover {
+  transform: scale(1.05);
+}
+
+/* SCROLL REVEAL — CSS natif, sans JS. Fallback : contenu visible normalement
+   si le navigateur ne supporte pas animation-timeline. */
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation: reveal-fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+
+@keyframes reveal-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* FOCUS CLAVIER — remplace l'outline bleu par défaut, cohérent avec la charte */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-thread);
+  outline-offset: 3px;
+}

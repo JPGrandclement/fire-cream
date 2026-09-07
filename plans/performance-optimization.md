@@ -275,15 +275,15 @@ export const VirtualList = ({ items }: { items: any[] }) => {
   return (
     <div ref={parentRef} style={{ height: '600px', overflow: 'auto' }}>
       <div
-        style={{
+        style={% raw %}{{
           height: `${virtualizer.getTotalSize()}px`,
           position: 'relative'
-        }}
+        }}{% endraw %}
       >
         {virtualizer.getVirtualItems().map(virtualItem => (
           <div
             key={virtualItem.key}
-            style={{
+            style={% raw %}{{
               position: 'absolute',
               top: 0,
               left: 0,
@@ -366,9 +366,9 @@ const SearchInput = () => {
 
 // Utiliser whileInView pour les animations au scroll
 <motion.div
-  initial={{ opacity: 0, y: 50 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-100px" }}
+  initial={% raw %}{{ opacity: 0, y: 50 }}{% endraw %}
+  whileInView={% raw %}{{ opacity: 1, y: 0 }}{% endraw %}
+  viewport={% raw %}{{ once: true, margin: "-100px" }}{% endraw %}
 />
 
 // Désactiver les animations sur mobile si nécessaire

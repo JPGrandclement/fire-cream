@@ -632,14 +632,14 @@ import { motion } from 'framer-motion'
 export const CustomAnimation = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      transition={{
+      initial={% raw %}{{ opacity: 0, scale: 0.8 }}{% endraw %}
+      animate={% raw %}{{ opacity: 1, scale: 1 }}{% endraw %}
+      exit={% raw %}{{ opacity: 0, scale: 0.8 }}{% endraw %}
+      transition={% raw %}{{
         type: "spring",
         stiffness: 260,
         damping: 20
-      }}
+      }}{% endraw %}
     >
       {children}
     </motion.div>

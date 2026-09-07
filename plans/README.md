@@ -1,14 +1,14 @@
-# 📚 Documentation Complète - Love Quest
+# 📚 Documentation Complète - Fire Cream
 
 ## Vue d'Ensemble
 
-Bienvenue dans la documentation architecturale complète de **Love Quest**, une Progressive Web App romantique et gamifiée conçue comme un cadeau d'amour personnalisé.
+Bienvenue dans la documentation architecturale complète de **Fire Cream**, une Progressive Web App romantique et gamifiée conçue comme un cadeau d'amour personnalisé.
 
 ---
 
 ## 🎯 Objectif du Projet
 
-Love Quest est une application web progressive qui permet de créer un cadeau numérique unique et interactif pour votre partenaire, combinant :
+Fire Cream est une application web progressive qui permet de créer un cadeau numérique unique et interactif pour votre partenaire, combinant :
 - 💝 Souvenirs et moments partagés
 - 🎮 Gamification et défis
 - 💌 Messages et lettres personnalisés
@@ -387,7 +387,7 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 💖 Remerciements
 
-Love Quest est créé avec amour pour célébrer les relations et créer des souvenirs durables.
+Fire Cream est créé avec amour pour célébrer les relations et créer des souvenirs durables.
 
 **Technologies utilisées:**
 - React & TypeScript
@@ -487,7 +487,7 @@ Voir la [Roadmap Complète](./roadmap-evolution.md) pour plus de détails.
 
 ## 🎉 Conclusion
 
-Vous disposez maintenant d'une documentation architecturale complète et exhaustive pour créer Love Quest, le cadeau d'amour numérique ultime.
+Vous disposez maintenant d'une documentation architecturale complète et exhaustive pour créer Fire Cream, le cadeau d'amour numérique ultime.
 
 **Cette documentation couvre :**
 - ✅ Architecture technique complète

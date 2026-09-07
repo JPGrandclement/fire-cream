@@ -1,4 +1,4 @@
-# 🧩 Architecture des Composants - Love Quest
+# 🧩 Architecture des Composants - Fire Cream
 
 ## Vue d'Ensemble
 

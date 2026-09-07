@@ -1,8 +1,8 @@
-# 🚀 Stratégie de Déploiement - Love Quest
+# 🚀 Stratégie de Déploiement - Fire Cream
 
 ## Vue d'Ensemble
 
-Ce document détaille la stratégie complète de déploiement, d'hébergement et de mise en production de Love Quest.
+Ce document détaille la stratégie complète de déploiement, d'hébergement et de mise en production de Fire Cream.
 
 ---
 
@@ -818,7 +818,7 @@ echo "✨ Deployment successful!"
 ### 11.1 Guide de Déploiement Rapide
 
 ```markdown
-# Guide de Déploiement - Love Quest
+# Guide de Déploiement - Fire Cream
 
 ## Première Installation
 

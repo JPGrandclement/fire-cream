@@ -1,4 +1,4 @@
-# 🔒 Sécurité & Confidentialité - Love Quest
+# 🔒 Sécurité & Confidentialité - Fire Cream
 
 ## Vue d'Ensemble
 
@@ -131,13 +131,13 @@ export class BiometricService {
     const publicKey: PublicKeyCredentialCreationOptions = {
       challenge: new Uint8Array(32), // Générer un challenge aléatoire
       rp: {
-        name: 'Love Quest',
+        name: 'Fire Cream',
         id: window.location.hostname
       },
       user: {
         id: new TextEncoder().encode(userId),
         name: userId,
-        displayName: 'Love Quest User'
+        displayName: 'Fire Cream User'
       },
       pubKeyCredParams: [
         { type: 'public-key', alg: -7 },  // ES256
@@ -606,7 +606,7 @@ export const sessionManager = new SessionManager()
 ### 7.1 Politique de Confidentialité
 
 ```markdown
-# Politique de Confidentialité - Love Quest
+# Politique de Confidentialité - Fire Cream
 
 ## 1. Données Collectées
 
@@ -703,7 +703,7 @@ export const ConsentBanner = () => {
         <h2 className="text-2xl font-bold mb-4">🍪 Confidentialité</h2>
         
         <p className="mb-4">
-          Love Quest respecte votre vie privée. Choisissez ce que vous souhaitez activer :
+          Fire Cream respecte votre vie privée. Choisissez ce que vous souhaitez activer :
         </p>
         
         <div className="space-y-3 mb-6">

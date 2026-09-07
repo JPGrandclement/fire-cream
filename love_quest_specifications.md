@@ -1,11 +1,11 @@
-# 💝 Cahier des Charges & Spécifications : "Love Quest"
+# 💝 Cahier des Charges & Spécifications : "Fire Cream"
 
-Ce document contient l'intégralité des spécifications fonctionnelles, techniques et graphiques du projet "Love Quest", afin de pouvoir le recréer ou le porter sur n'importe quel autre framework ou outil (React, Vue, Flutter, SwiftUI, etc.).
+Ce document contient l'intégralité des spécifications fonctionnelles, techniques et graphiques du projet "Fire Cream", afin de pouvoir le recréer ou le porter sur n'importe quel autre framework ou outil (React, Vue, Flutter, SwiftUI, etc.).
 
 ---
 
 ## 1. Concept et Vision
-**Love Quest** est une application conçue comme un cadeau dématérialisé pour son ou sa partenaire.
+**Fire Cream** est une application conçue comme un cadeau dématérialisé pour son ou sa partenaire.
 - **Objectif** : Offrir un espace intime, mignon et gamifié rempli d'attentions, de souvenirs et de jeux.
 - **Format** : Web App Progressive (PWA) ou application mobile native.
 - **Tone of voice** : Romantique, bienveillant, mignon, ludique.

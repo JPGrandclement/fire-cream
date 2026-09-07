@@ -1,8 +1,8 @@
-# 📊 Modèle de Données Complet - Love Quest
+# 📊 Modèle de Données Complet - Fire Cream
 
 ## Vue d'Ensemble
 
-Ce document définit l'intégralité du modèle de données pour Love Quest, incluant les schémas TypeScript, les structures JSON, et les validations Zod.
+Ce document définit l'intégralité du modèle de données pour Fire Cream, incluant les schémas TypeScript, les structures JSON, et les validations Zod.
 
 **Principes de conception:**
 - Séparation stricte contenu/code
@@ -53,7 +53,7 @@ export interface FeatureFlags {
 {
   "version": "1.0.0",
   "partnerName": "Mon Amour",
-  "appName": "Love Quest",
+  "appName": "Fire Cream",
   "startDate": "2024-02-14",
   "mascotName": "Cupidon",
   "mascotEmoji": "💘",

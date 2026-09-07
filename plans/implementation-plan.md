@@ -1,4 +1,4 @@
-# 🚀 Plan d'Implémentation Incrémental - Love Quest MVP
+# 🚀 Plan d'Implémentation Incrémental - Fire Cream MVP
 
 ## 📋 Résumé Exécutif
 

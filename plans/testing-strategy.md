@@ -1,8 +1,8 @@
-# 🧪 Stratégie de Tests - Love Quest
+# 🧪 Stratégie de Tests - Fire Cream
 
 ## Vue d'Ensemble
 
-Ce document détaille la stratégie complète de tests pour garantir la qualité, la fiabilité et la maintenabilité de Love Quest.
+Ce document détaille la stratégie complète de tests pour garantir la qualité, la fiabilité et la maintenabilité de Fire Cream.
 
 ---
 
@@ -551,7 +551,7 @@ test.describe('User Journey', () => {
     
     // Vérifier la page d'accueil
     await expect(page.locator('[data-testid="mascot"]')).toBeVisible()
-    await expect(page.locator('text=Love Quest')).toBeVisible()
+    await expect(page.locator('text=Fire Cream')).toBeVisible()
     
     // 2. Naviguer vers Timeline
     await page.click('text=Timeline')
@@ -596,7 +596,7 @@ test.describe('PWA Features', () => {
   test('should work offline', async ({ page, context }) => {
     // Visiter la page en ligne
     await page.goto('/')
-    await expect(page.locator('text=Love Quest')).toBeVisible()
+    await expect(page.locator('text=Fire Cream')).toBeVisible()
     
     // Passer en mode offline
     await context.setOffline(true)
@@ -605,7 +605,7 @@ test.describe('PWA Features', () => {
     await page.reload()
     
     // Vérifier que l'app fonctionne toujours
-    await expect(page.locator('text=Love Quest')).toBeVisible()
+    await expect(page.locator('text=Fire Cream')).toBeVisible()
     
     // Naviguer vers une autre page
     await page.click('text=Timeline')

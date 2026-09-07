@@ -1,8 +1,8 @@
-# 🗺️ Roadmap & Évolution - Love Quest
+# 🗺️ Roadmap & Évolution - Fire Cream
 
 ## Vue d'Ensemble
 
-Ce document présente la roadmap de développement, les évolutions futures et la stratégie de maintenance de Love Quest.
+Ce document présente la roadmap de développement, les évolutions futures et la stratégie de maintenance de Fire Cream.
 
 ---
 
@@ -557,7 +557,7 @@ Créer la plateforme ultime pour célébrer et renforcer les relations amoureuse
 
 ## 12. Conclusion
 
-Love Quest est bien plus qu'une simple application - c'est un cadeau d'amour évolutif qui grandira avec votre relation. Cette roadmap est un guide vivant qui s'adaptera aux besoins et aux retours des utilisateurs.
+Fire Cream est bien plus qu'une simple application - c'est un cadeau d'amour évolutif qui grandira avec votre relation. Cette roadmap est un guide vivant qui s'adaptera aux besoins et aux retours des utilisateurs.
 
 **Prochaines Étapes:**
 1. Finaliser la V1.0

@@ -1,4 +1,4 @@
-# 🎨 Design Brief V2 — "Love Quest" (niveau premium / signature)
+# 🎨 Design Brief V2 — "Fire Cream" (niveau premium / signature)
 
 À copier-coller dans ton prompt à Gemini Flash. Version plus poussée : moins "carte de Saint-Valentin", plus "site d'agence créative haut de gamme qui parle d'amour".
 

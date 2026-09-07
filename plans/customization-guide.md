@@ -1,8 +1,8 @@
-# 🎨 Guide de Personnalisation - Love Quest
+# 🎨 Guide de Personnalisation - Fire Cream
 
 ## Vue d'Ensemble
 
-Ce guide explique comment personnaliser entièrement Love Quest pour créer un cadeau unique et personnel.
+Ce guide explique comment personnaliser entièrement Fire Cream pour créer un cadeau unique et personnel.
 
 ---
 
@@ -15,7 +15,7 @@ Ce guide explique comment personnaliser entièrement Love Quest pour créer un c
 {
   "version": "1.0.0",
   "partnerName": "Mon Amour",
-  "appName": "Love Quest",
+  "appName": "Fire Cream",
   "startDate": "2024-02-14",
   "mascotName": "Cupidon",
   "mascotEmoji": "💘",

@@ -1,4 +1,4 @@
-# 🏗️ Architecture Complète - Love Quest
+# 🏗️ Architecture Complète - Fire Cream
 
 ## Document de Référence Architecturale
 **Version:** 1.0
@@ -411,8 +411,8 @@ love-quest/
 #### manifest.json
 ```json
 {
-  "name": "Love Quest - Notre Histoire",
-  "short_name": "Love Quest",
+  "name": "Fire Cream - Notre Histoire",
+  "short_name": "Fire Cream",
   "description": "Une aventure romantique rien que pour nous 💝",
   "start_url": "/",
   "display": "standalone",

@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # 🎨 Guide de Personnalisation - Love Quest
 
 ## Vue d'Ensemble

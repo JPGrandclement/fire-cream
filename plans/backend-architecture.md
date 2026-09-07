@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # ☁️ Architecture Backend Léger - Love Quest
 
 ## Vue d'Ensemble

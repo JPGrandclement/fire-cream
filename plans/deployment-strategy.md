@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # 🚀 Stratégie de Déploiement - Love Quest
 
 ## Vue d'Ensemble

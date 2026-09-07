@@ -1,7 +1,7 @@
 export interface Letter {
   id: string;
   title: string;
-  date: string;
+  unlockDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
   content: string;
   isLocked: boolean;
 }
@@ -12,28 +12,28 @@ export const letters: Letter[] = [
   {
     id: "letter-1",
     title: "Le premier mot",
-    date: "2025-01-01",
+    unlockDate: "2026-09-07T23:23:20",
     content: "C'est ici que tout a commencé, avec ce premier message envoyé un peu par hasard...",
     isLocked: false,
   },
   {
     id: "letter-2",
     title: "Souvenirs d'été",
-    date: "2026-12-25",
+    unlockDate: "2026-09-08T10:00:00", // Déblocage demain à 10h
     content: "Le soleil, la plage, et nous deux. Un souvenir gravé à jamais.",
     isLocked: true,
   },
   {
     id: "letter-3",
     title: "Un automne doux",
-    date: "2027-03-01",
+    unlockDate: "2026-09-09T18:30:00", // Déblocage après-demain à 18h30
     content: "Les feuilles tombent, mais notre amour reste plus fort que jamais.",
     isLocked: true,
   },
   {
     id: "letter-4",
     title: "Promesses d'avenir",
-    date: "2027-06-01",
+    unlockDate: "2026-10-01T09:00:00",
     content: "Une nouvelle année, de nouveaux projets, et toujours toi à mes côtés.",
     isLocked: true,
   },

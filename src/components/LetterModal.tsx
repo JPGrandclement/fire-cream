@@ -19,7 +19,7 @@ export function LetterModal({ letter, onClose }: LetterModalProps) {
       <div className="letter-modal" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={handleClose}>×</button>
         <h2>{letter.title}</h2>
-        <p className="date">{letter.date}</p>
+        <p className="date">{new Date(letter.unlockDate).toLocaleDateString()}</p>
         <div className="letter-content">
           {letter.content}
         </div>

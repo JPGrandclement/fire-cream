@@ -11,7 +11,7 @@ export function Envelope({ letter, onOpen }: EnvelopeProps) {
   const isRead = readLetters.includes(letter.id);
   
   // Une lettre est débloquée si la date est passée ou si elle n'est pas verrouillée
-  const isLocked = letter.isLocked && new Date(letter.date) > new Date();
+  const isLocked = letter.isLocked && new Date(letter.unlockDate) > new Date();
 
   return (
     <div
@@ -22,7 +22,7 @@ export function Envelope({ letter, onOpen }: EnvelopeProps) {
       <div className="envelope-flap" />
       <div className="envelope-body">
         <h3>{letter.title}</h3>
-        <p>{letter.date}</p>
+        <p>{new Date(letter.unlockDate).toUTCString().replace(" GMT", "")}</p>
       </div>
     </div>
   );

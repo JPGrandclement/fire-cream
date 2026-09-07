@@ -8,15 +8,24 @@ export function Hero() {
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
       >
-        Notre histoire
+        Bon anniversaire
       </motion.h1>
       <motion.p
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
-        Une quête à travers nos souvenirs, nos lettres, et tout ce qui nous
-        attend encore.
+        Un très joyeux anniversaire pour ta trente-troisième année Amour.
+        Je t'ai fait ce petit site pour pouvoir te glisser un certain nombre de petites attentions. Aujourd'hui, demain, dans un an...
+        <br />
+        Qui sait ? C'est ça d'être avec un con de geek.
+        
+        <br />
+        Il faudra être patiente, et curieuse dans le temps.
+
+        <br />
+        <br />
+        Je t'aime amour.
       </motion.p>
     </section>
   );

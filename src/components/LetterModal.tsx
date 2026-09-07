@@ -19,10 +19,17 @@ export function LetterModal({ letter, onClose }: LetterModalProps) {
       <div className="letter-modal" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={handleClose}>×</button>
         <h2>{letter.title}</h2>
-        <p className="date">{new Date(letter.unlockDate).toLocaleDateString()}</p>
+        <p className="date">{new Date(letter.unlockDate).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
         <div className="letter-content">
           {letter.content}
         </div>
+        {letter.audioUrl && (
+          <div className="letter-audio">
+            <audio controls src={letter.audioUrl}>
+              Votre navigateur ne supporte pas l'élément audio.
+            </audio>
+          </div>
+        )}
       </div>
     </div>
   );

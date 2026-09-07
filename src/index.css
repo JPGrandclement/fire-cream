@@ -97,6 +97,7 @@ main {
   font-weight: 500;
   z-index: 1;
   transition: color 0.3s var(--ease-out);
+  white-space: nowrap;
 }
 
 .nav-capsule a.active {
@@ -264,6 +265,7 @@ button:focus-visible {
 
 .route-step {
   position: relative;
+  cursor: pointer;
 }
 
 .route-step::before {
@@ -290,7 +292,7 @@ button:focus-visible {
   padding: 28px 32px;
   box-shadow: var(--shadow-card);
   transition: box-shadow 0.3s var(--ease-out);
-  cursor: default;
+  cursor: pointer;
 }
 
 .route-card:hover {
@@ -322,6 +324,239 @@ button:focus-visible {
 }
 
 /* ================================
+   MODAL — Timeline & Lettres
+   ================================ */
+.timeline-modal-overlay,
+.letter-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(42, 26, 31, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.timeline-modal,
+.letter-modal {
+  background: var(--color-paper);
+  padding: 40px;
+  border-radius: var(--radius);
+  max-width: 500px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-hover);
+}
+
+.timeline-modal img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-paper-dark);
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-ink-soft);
+  transition: background 0.2s var(--ease-out);
+}
+
+.close-btn:hover {
+  background: var(--color-gold-line);
+  color: var(--color-white);
+}
+
+.timeline-modal .date,
+.letter-modal .date {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gold-line);
+  margin: 0 0 16px;
+}
+
+.timeline-modal h2,
+.letter-modal h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 28px;
+  margin: 0 0 8px;
+  color: var(--color-burgundy);
+  padding-right: 32px;
+}
+
+.timeline-modal .content,
+.letter-modal .letter-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ================================
+   LETTRES CACHÉES
+   ================================ */
+.letters-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 140px 24px 120px;
+}
+
+.letters-page h1 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(36px, 6vw, 56px);
+  margin: 0 0 64px;
+  text-align: center;
+  color: var(--color-ink);
+}
+
+.envelopes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+}
+
+.envelope {
+  position: relative;
+  background: var(--color-white);
+  border: 1px solid var(--color-paper-dark);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-gold-line);
+}
+
+.envelope.unlocked:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.envelope.locked {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(0.4);
+}
+
+.envelope.read {
+  border-color: var(--color-gold-line);
+}
+
+.envelope.read::before {
+  background: var(--color-burgundy);
+}
+
+.envelope-flap {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  background: var(--color-seal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.envelope-flap::after {
+  content: "✉";
+  color: var(--color-parchment);
+  font-size: 20px;
+}
+
+.envelope-body {
+  text-align: center;
+}
+
+.envelope-body h3 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 6px;
+  color: var(--color-burgundy);
+}
+
+.envelope-body p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-ink-soft);
+}
+
+/* ================================
+   MESSAGE DU JOUR
+   ================================ */
+.daily-message-page {
+  min-height: 100vh;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 140px 24px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.daily-message-page h1 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(36px, 6vw, 56px);
+  margin: 0 0 48px;
+  color: var(--color-ink);
+}
+
+.message-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-paper-dark);
+  border-radius: var(--radius);
+  padding: 48px;
+  box-shadow: var(--shadow-card);
+  max-width: 560px;
+}
+
+.message-card p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 28px);
+  line-height: 1.5;
+  color: var(--color-burgundy);
+  margin: 0;
+}
+
+/* ================================
    RESPONSIVE / MOBILE
    ================================ */
 @media (max-width: 640px) {
@@ -332,8 +567,8 @@ button:focus-visible {
   }
 
   .nav-capsule a {
-    padding: 7px 14px;
-    font-size: 13px;
+    padding: 7px 10px;
+    font-size: 12px;
   }
 
   .route {
@@ -348,8 +583,23 @@ button:focus-visible {
     padding: 20px 22px;
   }
 
-  .timeline-page {
-    padding: 110px 16px 80px;
+  .timeline-page,
+  .letters-page,
+  .daily-message-page {
+    padding: 100px 16px 80px;
+  }
+
+  .timeline-modal,
+  .letter-modal {
+    padding: 28px 20px;
+  }
+
+  .message-card {
+    padding: 32px 24px;
+  }
+
+  .envelopes-grid {
+    grid-template-columns: 1fr;
   }
 }
 

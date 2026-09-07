@@ -4,6 +4,8 @@ import { NavCapsule } from "./components/NavCapsule";
 import { SealReveal } from "./components/SealReveal";
 import { Hero } from "./components/Hero";
 import { Timeline } from "./components/Timeline";
+import { LettersPage } from "./components/LettersPage";
+import { DailyMessagePage } from "./components/DailyMessagePage";
 import { useLenis } from "./lib/useLenis";
 
 const Home = () => (
@@ -24,6 +26,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/timeline" element={<Timeline />} />
+            <Route path="/lettres" element={<LettersPage />} />
+            <Route path="/message-du-jour" element={<DailyMessagePage />} />
           </Routes>
         </main>
       </div>

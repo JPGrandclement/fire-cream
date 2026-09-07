@@ -5,6 +5,8 @@ import { navigateWithTransition } from "../lib/viewTransition";
 const links = [
   { href: "/", label: "Accueil" },
   { href: "/timeline", label: "Timeline" },
+  { href: "/lettres", label: "Lettres" },
+  { href: "/message-du-jour", label: "Message" },
 ];
 
 export function NavCapsule() {

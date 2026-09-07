@@ -12,19 +12,19 @@ export interface TimelineStep {
 export const timelineSteps: TimelineStep[] = [
   {
     id: "step-1",
-    date: "14 Février 2023",
-    title: "La rencontre",
-    description: "Le jour où tout a basculé.",
+    date: "Août 2009",
+    title: "Oléron",
+    description: "La naissance de l'amour.",
     fullContent: "C'était un mardi pluvieux, mais dans ce café, le soleil semblait s'être invité. Une discussion qui n'en finissait plus, et cette sensation étrange de se connaître depuis toujours.",
-    image: "/images/rencontre.jpg",
+    image: "/images/rencontre.png",
   },
   {
     id: "step-2",
-    date: "Juin 2023",
-    title: "Premier voyage",
-    description: "L'évasion à deux.",
-    fullContent: "Nos premiers pas hors de notre zone de confort. Des valises trop lourdes, des plans perdus, mais surtout des fous rires inoubliables sous le ciel étoilé.",
-    image: "/images/voyage.jpg",
+    date: "20 Juin 2026",
+    title: "Recontact",
+    description: "Le message le plus important de ma vie.",
+    fullContent: "Ce jour là ",
+    image: "/images/message.png",
   },
   {
     id: "step-3",
@@ -39,7 +39,6 @@ export const timelineSteps: TimelineStep[] = [
     title: "Un chez-nous",
     description: "Les clés du bonheur.",
     fullContent: "Le premier appartement, les cartons à déballer, et cette fierté de construire notre propre cocon, brique par brique.",
-    image: "/images/chez-nous.jpg",
   },
   {
     id: "step-5",
@@ -61,6 +60,5 @@ export const timelineSteps: TimelineStep[] = [
     title: "Aujourd'hui",
     description: "Le début de tout.",
     fullContent: "Plus forts, plus complices, plus sûrs — et encore tant de pages à écrire ensemble. Ce n'est que le début de notre plus belle aventure.",
-    image: "/images/aujourdhui.jpg",
   },
 ];

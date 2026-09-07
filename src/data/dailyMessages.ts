@@ -1,9 +1,10 @@
 export const dailyMessages = [
-  "Chaque jour avec toi est une nouvelle aventure.",
-  "Ton sourire est ma plus belle récompense.",
-  "Merci d'être toi, tout simplement.",
-  "Je t'aime un peu plus chaque jour.",
-  "Tu es ma source d'inspiration quotidienne.",
+  "C'est abusé comme tu es la plus jolie.",
+  "Quelle chance j'ai que tu sois amoureuse de moi.",
+  "Un jour je t'ai ajouté sur insta et tu m'as accepté.",
+  ":papillon:",
+  "Tout ton être m'excite.",
+  
   "Rien n'est plus précieux que nos moments partagés.",
   "Avec toi, le monde semble plus lumineux.",
   "Tu es mon refuge et ma force.",

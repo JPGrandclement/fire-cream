@@ -19,7 +19,7 @@ export const letters: Letter[] = [
     title: "Bonne journée :)",
     unlockDate: "2026-09-08T07:04:00", // Déblocage demain à 10h
     content: "Titre : Fire Cream",
-    audioUrl: "musics/Fire Cream.mp3",
+    audioUrl: "musics/FireCream.mp3",
   },
   {
     id: "letter-3",

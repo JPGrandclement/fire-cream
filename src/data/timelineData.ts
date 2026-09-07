@@ -15,7 +15,7 @@ export const timelineSteps: TimelineStep[] = [
     date: "Août 2009",
     title: "Oléron",
     description: "La naissance de l'amour.",
-    fullContent: "C'était un mardi pluvieux, mais dans ce café, le soleil semblait s'être invité. Une discussion qui n'en finissait plus, et cette sensation étrange de se connaître depuis toujours.",
+    fullContent: "Dans ce camping, nos vies ont basculé. D'abord pour un été, pour quelques mois... Mais pour toujours en fait.",
     image: "/fire-cream/images/rencontre.png",
   },
   {

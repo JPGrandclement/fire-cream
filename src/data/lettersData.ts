@@ -17,14 +17,14 @@ export const letters: Letter[] = [
   {
     id: "letter-2",
     title: "Bonne journée :)",
-    unlockDate: "2026-09-08T07:04:00", // Déblocage demain à 10h
+    unlockDate: "2026-09-08T07:34:00", // Déblocage demain à 10h
     content: "Titre : Fire Cream",
     audioUrl: "musics/FireCream.mp3",
   },
   {
     id: "letter-3",
     title: "Bon appétit",
-    unlockDate: "2026-09-08T12:00:00", // Déblocage après-demain à 18h30
+    unlockDate: "2026-09-08T12:14:00", // Déblocage après-demain à 18h30
     content: "Envie d'une pâtisserie ? N'hésite pas... On sait jamais ce que la vie peut t'offrir.",
   },
   {

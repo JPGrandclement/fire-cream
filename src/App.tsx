@@ -18,7 +18,7 @@ export default function App() {
   useLenis();
 
   return (
-    <Router>
+    <Router basename="/fire-cream">
       <div className="layout-container">
         <ContextualCursor />
         <NavCapsule />

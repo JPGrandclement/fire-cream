@@ -3,6 +3,14 @@ import { motion } from "framer-motion";
 export function Hero() {
   return (
     <section className="hero">
+      <motion.img
+        src="/fire-cream/images/amour.png"
+        alt="Notre amour"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        style={{ width: "200px", borderRadius: "50%", marginBottom: "20px" }}
+      />
       <motion.h1
         initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}

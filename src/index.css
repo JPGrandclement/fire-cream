@@ -355,6 +355,8 @@ button:focus-visible {
 .timeline-modal img {
   width: 100%;
   height: auto;
+  max-height: 400px;
+  object-fit: contain;
   border-radius: var(--radius);
   margin-bottom: 20px;
   display: block;

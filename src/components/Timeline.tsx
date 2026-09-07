@@ -40,7 +40,7 @@ export function Timeline() {
       </div>
 
       {selectedStep && (
-        <div className="timeline-modal-overlay" onClick={() => setSelectedStep(null)}>
+        <div className="timeline-modal-overlay" onClick={() => setSelectedStep(null)} onWheel={(e) => e.stopPropagation()}>
           <div className="timeline-modal" onClick={(e) => e.stopPropagation()}>
             <button className="close-btn" onClick={() => setSelectedStep(null)}>×</button>
             {selectedStep.image && <img src={selectedStep.image} alt={selectedStep.title} />}

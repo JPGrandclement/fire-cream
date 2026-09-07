@@ -16,7 +16,7 @@ export const timelineSteps: TimelineStep[] = [
     title: "Oléron",
     description: "La naissance de l'amour.",
     fullContent: "C'était un mardi pluvieux, mais dans ce café, le soleil semblait s'être invité. Une discussion qui n'en finissait plus, et cette sensation étrange de se connaître depuis toujours.",
-    image: "/images/rencontre.png",
+    image: "/fire-cream/images/rencontre.png",
   },
   {
     id: "step-2",
@@ -24,7 +24,7 @@ export const timelineSteps: TimelineStep[] = [
     title: "Recontact",
     description: "Le message le plus important de ma vie.",
     fullContent: "Ce jour là ",
-    image: "/images/message.png",
+    image: "/fire-cream/images/message.png",
   },
   {
     id: "step-3",
@@ -32,7 +32,7 @@ export const timelineSteps: TimelineStep[] = [
     title: "La première fois",
     description: "qu'on se revoit. Qu'on se voit aussi...",
     fullContent: "J'ai passé une journée horrible, avec une migraine terrible. Et pourtant, cette journée a fini par être la plus romantique et douce de ma vie. Je me rappellerais éternellement, la sensation de la première fois. Avant de se mettre devant la fenêtre...",
-    image: "/images/robeverte.jpg",
+    image: "/fire-cream/images/robeverte.jpg",
   },
   {
     id: "step-4",
@@ -40,7 +40,7 @@ export const timelineSteps: TimelineStep[] = [
     title: "La tour",
     description: "\"Je me suis toujours dit que celui qui m'emmènera en haut de la tour, ce sera le bon.\"",
     fullContent: "Même le ciel était avec nous.",
-    image: "/images/ciel.png",
+    image: "/fire-cream/images/ciel.png",
   },
   {
     id: "step-5",
@@ -48,6 +48,6 @@ export const timelineSteps: TimelineStep[] = [
     title: "A suivre",
     description: "",
     fullContent: "Je t'aime.",
-    image: "/images/tour.png",
+    image: "/fire-cream/images/tour.png",
   },
 ];

@@ -29,7 +29,7 @@ export const letters: Letter[] = [
   {
     id: "letter-3",
     title: "Bon appétit",
-    unlockDate: "2026-09-08T11:14:00", // Déblocage après-demain à 18h30
+    unlockDate: "2026-09-08T12:14:00", // Déblocage après-demain à 18h30
     content: "Envie d'une pâtisserie ? N'hésite pas... On sait jamais ce que la vie peut t'offrir.",
     imageUrl: "images/ephemere.png",
   },

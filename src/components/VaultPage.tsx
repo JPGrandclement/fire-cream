@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 
 export function VaultPage() {
   const [error, setError] = useState('');
+  const [attempts, setAttempts] = useState(0);
+  const [isSleeping, setIsSleeping] = useState(false);
+
   const errors = [
     "Pas encore... essaie autre chose !",
     "Toujours pas, c'est plus subtil que ça.",
@@ -16,9 +19,28 @@ export function VaultPage() {
   ];
 
   const handleTry = () => {
+    const hour = new Date().getHours();
+    const newAttempts = attempts + 1;
+    setAttempts(newAttempts);
+
+    if (hour >= 0 && hour < 7 && newAttempts >= 15) {
+      setIsSleeping(true);
+      return;
+    }
+
     const randomError = errors[Math.floor(Math.random() * errors.length)];
     setError(randomError);
   };
+
+  if (isSleeping) {
+    return (
+      <div className="vault-page-sleep" style={{ padding: '100px 20px', textAlign: 'center', animation: 'successFade 2s' }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-burgundy)' }}>ZZzz...</h1>
+        <p>Allez, va te coucher, le coffre est fatigué !</p>
+        <img src="images/dodo.png" alt="Bonne nuit" style={{ width: '200px', marginTop: '20px' }} />
+      </div>
+    );
+  }
 
   return (
     <div className="vault-page" style={{ padding: '100px 20px', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>

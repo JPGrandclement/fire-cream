@@ -337,6 +337,7 @@ button:focus-visible {
   justify-content: center;
   z-index: 1000;
   padding: 24px;
+  overflow: hidden;
 }
 
 .timeline-modal,
@@ -346,10 +347,12 @@ button:focus-visible {
   border-radius: var(--radius);
   max-width: 500px;
   width: 100%;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
   position: relative;
   box-shadow: var(--shadow-hover);
+  pointer-events: auto;
+  overscroll-behavior: contain;
 }
 
 .timeline-modal img {
@@ -411,8 +414,30 @@ button:focus-visible {
   font-size: 15px;
   line-height: 1.7;
   color: var(--color-ink-soft);
-  margin: 0;
+  margin: 0 0 20px;
   white-space: pre-wrap;
+}
+
+.letter-lyrics {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-paper-dark);
+}
+
+.letter-lyrics h4 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--color-burgundy);
+  margin: 0 0 10px;
+}
+
+.letter-lyrics p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  white-space: pre-wrap;
+  font-style: italic;
 }
 
 /* ================================
@@ -435,9 +460,11 @@ button:focus-visible {
 }
 
 .envelopes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 32px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .envelope {
@@ -493,9 +520,12 @@ button:focus-visible {
 }
 
 .envelope-flap::after {
-  content: "✉";
-  color: var(--color-parchment);
-  font-size: 20px;
+  content: "";
+  width: 24px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'%3E%3C/path%3E%3Cpolyline points='22,6 12,13 2,6'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .envelope-body {
@@ -600,9 +630,6 @@ button:focus-visible {
     padding: 32px 24px;
   }
 
-  .envelopes-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ================================

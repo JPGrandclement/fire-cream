@@ -16,7 +16,11 @@ export function LetterModal({ letter, onClose }: LetterModalProps) {
 
   return (
     <div className="letter-modal-overlay" onClick={handleClose}>
-      <div className="letter-modal" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="letter-modal"
+        onClick={(e) => e.stopPropagation()}
+        onWheel={(e) => e.stopPropagation()}
+      >
         <button className="close-btn" onClick={handleClose}>×</button>
         <h2>{letter.title}</h2>
         <p className="date">{new Date(letter.unlockDate).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
@@ -28,6 +32,12 @@ export function LetterModal({ letter, onClose }: LetterModalProps) {
             <audio controls src={letter.audioUrl}>
               Votre navigateur ne supporte pas l'élément audio.
             </audio>
+          </div>
+        )}
+        {letter.lyrics && (
+          <div className="letter-lyrics">
+            <h4>Paroles (telles que je les ai écrites avant de générer quoi que ce soit. J'ai généré à partir de ça.)</h4>
+            <p>{letter.lyrics}</p>
           </div>
         )}
       </div>

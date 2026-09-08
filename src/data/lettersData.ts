@@ -4,9 +4,12 @@ export interface Letter {
   unlockDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
   content: string;
   audioUrl?: string; // Optionnel : URL du fichier audio
+  lyrics?: string; // Optionnel : Paroles de la chanson
 }
 
 // Note : une lettre est verrouillée si sa date est dans le futur.
+import { fireCreamLyrics } from "./lyrics";
+
 export const letters: Letter[] = [
   {
     id: "letter-1",
@@ -20,6 +23,7 @@ export const letters: Letter[] = [
     unlockDate: "2026-09-08T07:34:00", // Déblocage demain à 10h
     content: "Titre : Fire Cream",
     audioUrl: "musics/FireCream.mp3",
+    lyrics: fireCreamLyrics,
   },
   {
     id: "letter-3",

@@ -7,7 +7,12 @@ export function VaultPage() {
     "Toujours pas, c'est plus subtil que ça.",
     "Tu chauffes, mais non.",
     "Allez, tente un truc, n'importe quoi !",
-    "Non, ce n'est pas la bonne clé."
+    "Non, ce n'est pas la bonne clé.",
+    "Essaie encore, le coffre résiste !",
+    "Rien ne se passe... c'est frustrant, hein ?",
+    "Tu es sûr de ton coup ?",
+    "Le coffre est bien fermé, cherche mieux.",
+    "Perdu ! Recommence."
   ];
 
   const handleTry = () => {
@@ -22,7 +27,7 @@ export function VaultPage() {
       </div>
       <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-burgundy)' }}>Le Coffre-Fort</h1>
       <div style={{ padding: '20px', border: '2px solid var(--color-burgundy)', borderRadius: 'var(--radius)', background: 'var(--color-paper-dark)' }}>
-        <p style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>Défi unique</p>
+        <p style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>Chiottes ! Encore un défi ! Celui-là sera plus compliqué... Tu risques de devoir attendre un moment avant de comprendre. Peut-être qu'en plus d'actions à faire sur le site, il y a des choses à faire dans la vie pour y arriver ;) (Je t'aime amour)</p>
         <button onClick={handleTry} style={{ padding: '10px 20px', cursor: 'pointer', background: 'var(--color-burgundy)', color: 'white', border: 'none', borderRadius: 'var(--radius)' }}>Tente un truc</button>
         {error && <p style={{ marginTop: '20px', color: 'var(--color-burgundy)' }}>{error}</p>}
       </div>

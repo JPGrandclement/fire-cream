@@ -18,7 +18,18 @@ export function SecretCodeModal({ onSuccess, correctCode }: SecretCodeModalProps
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (input.toLowerCase() === correctCode.toLowerCase()) {
+    const normalizedInput = input
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/g, "");
+    const normalizedCode = correctCode
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/g, "");
+
+    if (normalizedInput === normalizedCode) {
       setSuccess(true);
       unlockVault();
       setTimeout(() => {
@@ -42,8 +53,13 @@ export function SecretCodeModal({ onSuccess, correctCode }: SecretCodeModalProps
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <h3>Entrez le code secret</h3>
-          <p>Pour accéder à la surprise, entre le code secret ! chuuut</p>
+          <h3>La Charade</h3>
+          <div style={{ textAlign: 'left', marginBottom: '20px', fontSize: '0.9em', lineHeight: '1.6' }}>
+            <p>Mon premier est ce qu'on fait quand on chante avec son cul</p>
+            <p>Mon deuxième est ce qu'on vise à la pétanque</p>
+            <p>Mon troisième est là où on glisse les bulletins de vote (à gauche)</p>
+            <p><strong>Mon tout est ce que t'es !</strong></p>
+          </div>
           <input
             type="text"
             value={input}
@@ -51,7 +67,7 @@ export function SecretCodeModal({ onSuccess, correctCode }: SecretCodeModalProps
               setInput(e.target.value);
               setError(false);
             }}
-            placeholder="Code..."
+            placeholder="Réponse..."
           />
           <button type="submit">Valider</button>
           {error && <p className="error">Code incorrect, essaie encore !</p>}

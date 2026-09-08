@@ -41,7 +41,7 @@ export const letters: Letter[] = [
   },
   {
     id: "letter-5",
-    title: "Encore une surprise !",
+    title: "Encore une surprise ! VITE CLIQUE ICIIIII !!!",
     unlockDate: "2026-09-08T23:34:00",
     content: "SECRET_CODE_REQUIRED",
   },

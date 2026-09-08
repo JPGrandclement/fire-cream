@@ -33,8 +33,8 @@ export function LetterModal({ letter, onClose }: LetterModalProps) {
         <div className="letter-content">
           {letter.content === "SECRET_CODE_REQUIRED" ? (
             <SecretCodeModal
-              correctCode="01012025"
-              onSuccess={() => alert("Bravo ! Voici tes billets : ...")}
+              correctCode="1ERSFD213RFSDF13RSDFF13RQS1Fr"
+              onSuccess={() => alert("Bien joué !")}
             />
           ) : (
             letter.content

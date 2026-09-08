@@ -39,4 +39,10 @@ export const letters: Letter[] = [
     unlockDate: "2026-09-08T18:00:00",
     content: "des salades. Un colis ?",
   },
+  {
+    id: "letter-5",
+    title: "Encore une surprise ?",
+    unlockDate: "2026-09-08T23:34:00",
+    content: "Reviens plus tard, il y aura une surprise ici !",
+  },
 ];

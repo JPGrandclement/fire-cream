@@ -6,6 +6,8 @@ interface LoveQuestState {
   markLetterAsRead: (id: string) => void;
   dailyMessageCache: { date: string; text: string } | null;
   setDailyMessageCache: (cache: { date: string; text: string }) => void;
+  isVaultUnlocked: boolean;
+  unlockVault: () => void;
 }
 
 export const useLoveQuestStore = create<LoveQuestState>()(
@@ -20,6 +22,8 @@ export const useLoveQuestStore = create<LoveQuestState>()(
         })),
       dailyMessageCache: null,
       setDailyMessageCache: (cache) => set({ dailyMessageCache: cache }),
+      isVaultUnlocked: false,
+      unlockVault: () => set({ isVaultUnlocked: true }),
     }),
     {
       name: 'love-quest-storage',

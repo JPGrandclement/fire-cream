@@ -1,5 +1,6 @@
 import { Letter } from "../data/lettersData";
 import { useLoveQuestStore } from "../store/useLoveQuestStore";
+import { SecretCodeModal } from "./SecretCodeModal";
 
 interface LetterModalProps {
   letter: Letter;
@@ -30,7 +31,14 @@ export function LetterModal({ letter, onClose }: LetterModalProps) {
           </div>
         )}
         <div className="letter-content">
-          {letter.content}
+          {letter.content === "SECRET_CODE_REQUIRED" ? (
+            <SecretCodeModal
+              correctCode="01012025"
+              onSuccess={() => alert("Bravo ! Voici tes billets : ...")}
+            />
+          ) : (
+            letter.content
+          )}
         </div>
         {letter.audioUrl && (
           <div className="letter-audio">

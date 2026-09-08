@@ -24,6 +24,11 @@ export function LetterModal({ letter, onClose }: LetterModalProps) {
         <button className="close-btn" onClick={handleClose}>×</button>
         <h2>{letter.title}</h2>
         <p className="date">{new Date(letter.unlockDate).toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
+        {letter.imageUrl && (
+          <div className="letter-image">
+            <img src={letter.imageUrl} alt={letter.title} />
+          </div>
+        )}
         <div className="letter-content">
           {letter.content}
         </div>

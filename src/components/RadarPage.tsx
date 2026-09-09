@@ -371,10 +371,29 @@ export function RadarPage() {
       <p className="radar-subtitle">Tu as trouvé l'objet ! Le radar est activé.</p>
 
       {/* Debug panel */}
-      <div style={{ background: 'rgba(255,255,255,0.1)', padding: '10px', borderRadius: '8px', marginBottom: '20px', fontSize: '0.8rem', textAlign: 'left' }}>
-        <p><strong>DEBUG POSITIONS:</strong></p>
-        <p>Moi: {visitorPos ? `${visitorPos.lat.toFixed(6)}, ${visitorPos.lng.toFixed(6)}` : '...'}</p>
-        <p>Cible: {targetPos ? `${targetPos.lat.toFixed(6)}, ${targetPos.lng.toFixed(6)}` : '...'}</p>
+      <div style={{
+        background: 'rgba(55, 214, 122, 0.05)',
+        border: '1px solid rgba(55, 214, 122, 0.2)',
+        padding: '12px',
+        borderRadius: '12px',
+        marginBottom: '24px',
+        fontSize: '0.85rem',
+        textAlign: 'left',
+        color: '#cfeede',
+        maxWidth: '520px',
+        margin: '0 auto 24px auto'
+      }}>
+        <p style={{ margin: '0 0 8px 0', color: '#37d67a', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
+          📡 État du signal
+        </p>
+        <div style={{ display: 'grid', gap: '4px' }}>
+          <p style={{ margin: 0 }}>
+            <span style={{ color: '#9adfb0' }}>Ma position :</span> {visitorPos ? `${visitorPos.lat.toFixed(5)}, ${visitorPos.lng.toFixed(5)}` : 'Recherche...'}
+          </p>
+          <p style={{ margin: 0 }}>
+            <span style={{ color: '#9adfb0' }}>Position cible :</span> {targetPos ? `${targetPos.lat.toFixed(5)}, ${targetPos.lng.toFixed(5)}` : 'En attente...'}
+          </p>
+        </div>
       </div>
 
       {error && <p className="radar-error">{error}</p>}

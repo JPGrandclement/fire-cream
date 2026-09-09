@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ContextualCursor } from "./components/ContextualCursor";
 import { NavCapsule } from "./components/NavCapsule";
 import { SealReveal } from "./components/SealReveal";
@@ -21,7 +21,7 @@ export default function App() {
   useLenis();
 
   return (
-    <Router basename="/fire-cream">
+    <Router>
       <div className="layout-container">
         <ContextualCursor />
         <NavCapsule />
@@ -36,6 +36,11 @@ export default function App() {
             <Route path="/admin-location" element={<AdminLocationPage />} />
           </Routes>
         </main>
+        <footer style={{ position: 'fixed', bottom: 0, right: 0, opacity: 0.1 }}>
+          <a href="/vault">V</a>
+          <a href="/radar">R</a>
+          <a href="/admin-location">A</a>
+        </footer>
       </div>
     </Router>
   );

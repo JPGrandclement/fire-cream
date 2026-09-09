@@ -30,20 +30,17 @@ export function NavCapsule() {
 
   return (
     <nav className={`nav-capsule${scrolled ? " nav-capsule--compact" : ""}`}>
-      {links.map((link) => {
-        if (link.href === "/vault" && !isVaultUnlocked) return null;
-        return (
-          <a
-            key={link.href}
-            href={link.href}
-            data-cursor="Voir"
-            className={location.pathname === link.href ? "active" : ""}
-            onClick={(e) => handleClick(e, link.href)}
-          >
-            {link.label}
-          </a>
-        );
-      })}
+      {links.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          data-cursor="Voir"
+          className={location.pathname === link.href ? "active" : ""}
+          onClick={(e) => handleClick(e, link.href)}
+        >
+          {link.label}
+        </a>
+      ))}
     </nav>
   );
 }

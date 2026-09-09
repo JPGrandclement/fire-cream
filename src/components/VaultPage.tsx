@@ -69,7 +69,6 @@ export function VaultPage() {
               document.removeEventListener('mousemove', onMouseMove);
               document.removeEventListener('mouseup', onMouseUp);
               
-              // Check collision with target (bottom-left)
               const target = document.getElementById('vault-target');
               if (target && buttonRef.current) {
                 const buttonRect = buttonRef.current.getBoundingClientRect();
@@ -82,13 +81,45 @@ export function VaultPage() {
                 ) {
                   setTimeout(() => {
                     setIsSuccess(true);
-                  }, 500); // Délai de 500ms pour la transition
+                  }, 500);
                   setPosition({ x: 0, y: 0 });
                 }
               }
             };
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
+          }}
+          onTouchStart={(e) => {
+            const touch = e.touches[0];
+            const startX = touch.clientX - position.x;
+            const startY = touch.clientY - position.y;
+            const onTouchMove = (moveEvent: TouchEvent) => {
+              const moveTouch = moveEvent.touches[0];
+              setPosition({ x: moveTouch.clientX - startX, y: moveTouch.clientY - startY });
+            };
+            const onTouchEnd = () => {
+              document.removeEventListener('touchmove', onTouchMove);
+              document.removeEventListener('touchend', onTouchEnd);
+              
+              const target = document.getElementById('vault-target');
+              if (target && buttonRef.current) {
+                const buttonRect = buttonRef.current.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+                if (
+                  buttonRect.left < targetRect.right &&
+                  buttonRect.right > targetRect.left &&
+                  buttonRect.top < targetRect.bottom &&
+                  buttonRect.bottom > targetRect.top
+                ) {
+                  setTimeout(() => {
+                    setIsSuccess(true);
+                  }, 500);
+                  setPosition({ x: 0, y: 0 });
+                }
+              }
+            };
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd);
           }}
           style={{
             padding: '10px 20px',

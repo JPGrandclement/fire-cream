@@ -7,6 +7,7 @@ import { Timeline } from "./components/Timeline";
 import { LettersPage } from "./components/LettersPage";
 import { DailyMessagePage } from "./components/DailyMessagePage";
 import { VaultPage } from "./components/VaultPage";
+import { AdminLocationPage } from "./components/AdminLocationPage";
 import { useLenis } from "./lib/useLenis";
 
 const Home = () => (
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/lettres" element={<LettersPage />} />
             <Route path="/message-du-jour" element={<DailyMessagePage />} />
             <Route path="/vault" element={<VaultPage />} />
+            <Route path="/admin-location" element={<AdminLocationPage />} />
           </Routes>
         </main>
       </div>

@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getDistance } from '../lib/geolocation';
+import { listenToOtherPosition } from '../lib/firebaseService';
 
 export function VaultPage() {
   const [error, setError] = useState('');
   const [attempts, setAttempts] = useState(0);
   const [isSleeping, setIsSleeping] = useState(false);
+  const [isNear, setIsNear] = useState(false);
+  const [checking, setChecking] = useState(false);
+  const [otherPosition, setOtherPosition] = useState<{ lat: number, lng: number } | null>(null);
+
+  useEffect(() => {
+    listenToOtherPosition((pos) => setOtherPosition(pos));
+  }, []);
 
   const errors = [
     "Pas encore... essaie autre chose !",
@@ -32,12 +41,39 @@ export function VaultPage() {
     setError(randomError);
   };
 
+  const checkPosition = () => {
+    if (!otherPosition) {
+      setError("Position de l'autre non disponible.");
+      return;
+    }
+
+    setChecking(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const distance = getDistance(latitude, longitude, otherPosition.lat, otherPosition.lng);
+        
+        if (distance < 50) {
+          setIsNear(true);
+          setError('');
+        } else {
+          setError(`Trop loin ! Tu es à ${Math.round(distance)} mètres.`);
+        }
+        setChecking(false);
+      },
+      () => {
+        setError("Impossible d'obtenir ta position.");
+        setChecking(false);
+      }
+    );
+  };
+
   if (isSleeping) {
     return (
       <div className="vault-page-sleep" style={{ padding: '100px 20px', textAlign: 'center', animation: 'successFade 2s' }}>
         <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-burgundy)' }}>ZZzz...</h1>
         <p>Allez, va te coucher, le coffre est fatigué !</p>
-        <img src="images/dodo.png" alt="Bonne nuit" style={{ width: '200px', marginTop: '20px' }} />
+        <img src="images/ciel.png" alt="Bonne nuit" style={{ width: '200px', marginTop: '20px' }} />
       </div>
     );
   }
@@ -49,8 +85,11 @@ export function VaultPage() {
       </div>
       <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-burgundy)' }}>Le Coffre-Fort</h1>
       <div style={{ padding: '20px', border: '2px solid var(--color-burgundy)', borderRadius: 'var(--radius)', background: 'var(--color-paper-dark)' }}>
-        <p style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>Chiottes ! Encore un défi ! Celui-là sera plus compliqué... Tu risques de devoir attendre un moment avant de comprendre. Peut-être qu'en plus d'actions à faire sur le site, il y a des choses à faire dans la vie pour y arriver ;) (Je t'aime amour)</p>
-        <button onClick={handleTry} style={{ padding: '10px 20px', cursor: 'pointer', background: 'var(--color-burgundy)', color: 'white', border: 'none', borderRadius: 'var(--radius)' }}>Tente un truc</button>
+        <p style={{ margin: '0 0 20px 0', fontWeight: 'bold' }}>Défi de proximité</p>
+        <button onClick={checkPosition} disabled={checking} style={{ padding: '10px 20px', cursor: 'pointer', background: 'var(--color-burgundy)', color: 'white', border: 'none', borderRadius: 'var(--radius)' }}>
+          {checking ? "Vérification..." : "Vérifier ma position"}
+        </button>
+        {isNear && <button style={{ marginLeft: '10px', padding: '10px 20px', background: 'green', color: 'white', border: 'none', borderRadius: 'var(--radius)' }}>Débloquer !</button>}
         {error && <p style={{ marginTop: '20px', color: 'var(--color-burgundy)' }}>{error}</p>}
       </div>
     </div>

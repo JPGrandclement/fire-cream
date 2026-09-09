@@ -35,7 +35,7 @@ function compassLabel(deg: number) {
 }
 
 // Paliers d'échelle du rayon radar, du plus large au plus précis
-const SCALE_STEPS_KM = [1000, 500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05];
+const SCALE_STEPS_KM = [2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05];
 const WAVE_PERIOD_MS = 3200;
 
 type LatLng = { lat: number; lng: number };
@@ -44,7 +44,9 @@ export function RadarPage() {
   const [visitorPos, setVisitorPos] = useState<LatLng | null>(null); // toi, au centre
   const [targetPos, setTargetPos] = useState<LatLng | null>(null); // ta position perso stockée sur Firebase
   const [accuracy, setAccuracy] = useState<number | null>(null); // précision GPS en mètres
-  const [scaleIndex, setScaleIndex] = useState(6); // ~10km par défaut
+  const [scaleIndex, setScaleIndex] = useState(0); // 2000km par défaut
+  const [showScaleIndicator, setShowScaleIndicator] = useState(false);
+  const scaleIndicatorTimeoutRef = useRef<number | null>(null);
   const [error, setError] = useState('');
   const [muted, setMuted] = useState(false);
 
@@ -368,6 +370,13 @@ export function RadarPage() {
       <h1 className="radar-title">Radar</h1>
       <p className="radar-subtitle">Tu as trouvé l'objet ! Le radar est activé.</p>
 
+      {/* Debug panel */}
+      <div style={{ background: 'rgba(255,255,255,0.1)', padding: '10px', borderRadius: '8px', marginBottom: '20px', fontSize: '0.8rem', textAlign: 'left' }}>
+        <p><strong>DEBUG POSITIONS:</strong></p>
+        <p>Moi: {visitorPos ? `${visitorPos.lat.toFixed(6)}, ${visitorPos.lng.toFixed(6)}` : '...'}</p>
+        <p>Cible: {targetPos ? `${targetPos.lat.toFixed(6)}, ${targetPos.lng.toFixed(6)}` : '...'}</p>
+      </div>
+
       {error && <p className="radar-error">{error}</p>}
 
       <div className="radar-controls">
@@ -381,7 +390,12 @@ export function RadarPage() {
           max={usableSteps.length - 1}
           step={1}
           value={scaleIndex}
-          onChange={(e) => setScaleIndex(Number(e.target.value))}
+          onChange={(e) => {
+            setScaleIndex(Number(e.target.value));
+            setShowScaleIndicator(true);
+            if (scaleIndicatorTimeoutRef.current) clearTimeout(scaleIndicatorTimeoutRef.current);
+            scaleIndicatorTimeoutRef.current = window.setTimeout(() => setShowScaleIndicator(false), 1000);
+          }}
         />
         <button type="button" className="radar-mute-btn" onClick={() => setMuted((m) => !m)}>
           {muted ? '🔇 Son coupé' : '🔊 Bip activé'}
@@ -443,6 +457,25 @@ export function RadarPage() {
                 transform: `translate(-50%, -50%) rotate(${offRangePoint.rotation}deg)`,
               }}
             />
+          )}
+
+          {/* Indicateur de changement d'échelle */}
+          {showScaleIndicator && (
+            <div style={{
+              position: 'absolute',
+              top: '10px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'rgba(55, 214, 122, 0.8)',
+              color: '#000',
+              padding: '4px 12px',
+              borderRadius: '999px',
+              fontSize: '0.8rem',
+              fontWeight: 'bold',
+              zIndex: 10
+            }}>
+              Échelle : {formatKm(scaleKm)}
+            </div>
           )}
         </div>
       </div>

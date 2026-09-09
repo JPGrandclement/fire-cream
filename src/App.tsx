@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ContextualCursor } from "./components/ContextualCursor";
 import { NavCapsule } from "./components/NavCapsule";
 import { SealReveal } from "./components/SealReveal";
@@ -21,7 +21,7 @@ export default function App() {
   useLenis();
 
   return (
-    <Router basename="/fire-cream">
+    <Router>
       <div className="layout-container">
         <ContextualCursor />
         <NavCapsule />
@@ -45,3 +45,4 @@ export default function App() {
     </Router>
   );
 }
+

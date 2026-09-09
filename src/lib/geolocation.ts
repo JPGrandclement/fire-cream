@@ -34,3 +34,27 @@ export const getCurrentPosition = (): Promise<GeolocationPosition> => {
     );
   });
 };
+
+export const watchPosition = (
+  onSuccess: (position: GeolocationPosition) => void,
+  onError: (error: GeolocationPositionError) => void
+): number => {
+  if (!navigator.geolocation) {
+    onError({ code: 0, message: "Géolocalisation non supportée", PERMISSION_DENIED: 1, POSITION_UNAVAILABLE: 2, TIMEOUT: 3 } as GeolocationPositionError);
+    return 0;
+  }
+
+  return navigator.geolocation.watchPosition(
+    onSuccess,
+    onError,
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0,
+    }
+  );
+};
+
+export const clearWatch = (watchId: number) => {
+  navigator.geolocation.clearWatch(watchId);
+};

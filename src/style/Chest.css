@@ -1,0 +1,91 @@
+.treasure-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.success-message {
+  font-size: 1.5rem;
+  color: #2e7d32;
+  font-weight: bold;
+  opacity: 0;
+  margin-bottom: 2rem;
+  /* L'animation démarre tout de suite */
+  animation: fadeInDown 0.5s ease forwards;
+}
+
+.chest-container {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.chest {
+  font-size: 5rem;
+  z-index: 2;
+  user-select: none;
+}
+
+.item {
+  position: absolute;
+  font-size: 3.5rem;
+  top: 10px;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- ANIMATIONS LORS DE L'OUVERTURE --- */
+
+/* Le coffre tremble (s'ouvre) APRES le message (délai de 0.5s) */
+.is-open .chest {
+  animation: shakeOpen 0.5s ease forwards;
+  animation-delay: 0.5s;
+}
+
+/* L'objet sort APRES l'ouverture du coffre (délai de 1s) */
+.is-open .item {
+  animation: popOut 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 1s;
+}
+
+/* --- KEYFRAMES --- */
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shakeOpen {
+  0% { transform: translateX(0) scale(1); }
+  20% { transform: translateX(-10px) rotate(-10deg) scale(1.1); }
+  40% { transform: translateX(10px) rotate(10deg) scale(1.1); }
+  60% { transform: translateX(-10px) rotate(-10deg) scale(1.1); }
+  80% { transform: translateX(10px) rotate(10deg) scale(1.1); }
+  100% { transform: translateX(0) scale(1.1); } /* Le coffre reste un peu plus gros à la fin */
+}
+
+@keyframes popOut {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-100px) scale(1.2); /* Monte haut */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-80px) scale(1); /* Se stabilise au-dessus du coffre */
+  }
+}
+
+.hint {
+  margin-top: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+}

@@ -2,6 +2,30 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { listenToMyPosition } from '../lib/firebaseService';
 
+/* ---------- Configuration du cadeau ---------- */
+// Le PDF vit dans le dossier public du site, exactement comme tes images
+// (ex: /public/documents/... ou le dossier où atterrissent déjà tes assets).
+// Adapte simplement ce chemin à ton arborescence réelle.
+const GIFT_PDF_URL = '/documents/billets-nawell-madani.pdf';
+const GIFT_EVENT_TITLE = 'Nawell Madani — Tout Court';
+const GIFT_EVENT_DATE = 'Samedi 24 octobre 2026 · 20h00';
+const GIFT_EVENT_VENUE = 'Casino de Paris';
+const GIFT_EVENT_SEATS = '2 places · Balcon de face pair, rang V';
+const GIFT_STORAGE_KEY = 'radar_gift_unlocked_v1';
+
+// Distance (en km) sous laquelle on considère la cible "atteinte".
+// 0.03 km = 30 m : à ajuster selon la précision GPS réelle des appareils visés.
+const GIFT_UNLOCK_DISTANCE_KM = 0.03;
+
+function readGiftUnlockedFromStorage(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.localStorage.getItem(GIFT_STORAGE_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
 // ---------- Helpers géographiques ----------
 const toRad = (deg: number) => (deg * Math.PI) / 180;
 const toDeg = (rad: number) => (rad * 180) / Math.PI;
@@ -58,6 +82,12 @@ export function RadarPage() {
   const wasBeforeThresholdRef = useRef(true);
   const revealTimeoutRef = useRef<number | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
+
+  // --- État du cadeau ---
+  const [giftUnlocked, setGiftUnlocked] = useState<boolean>(() => readGiftUnlockedFromStorage());
+  const [showGiftOverlay, setShowGiftOverlay] = useState(false);
+  const [chestOpen, setChestOpen] = useState(false);
+  const hasTriggeredGiftRef = useRef<boolean>(readGiftUnlockedFromStorage());
 
   // L'échelle la plus précise ne peut pas descendre sous la précision GPS réelle
   const usableSteps = useMemo(() => {
@@ -152,13 +182,17 @@ export function RadarPage() {
     };
   }, [dist, brng, inRange]);
 
+  const getAudioCtx = useCallback(() => {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    return audioCtxRef.current;
+  }, []);
+
   const playBeep = useCallback(() => {
     if (muted) return;
     try {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-      }
-      const ctx = audioCtxRef.current;
+      const ctx = getAudioCtx();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'sine';
@@ -173,7 +207,31 @@ export function RadarPage() {
     } catch {
       // audio indisponible, on ignore silencieusement
     }
-  }, [muted]);
+  }, [muted, getAudioCtx]);
+
+  const playVictoryChime = useCallback(() => {
+    if (muted) return;
+    try {
+      const ctx = getAudioCtx();
+      const notes = [523.25, 659.25, 783.99, 1046.5]; // petit arpège triomphal
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        const start = ctx.currentTime + i * 0.12;
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.18, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.4);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + 0.45);
+      });
+    } catch {
+      // audio indisponible, on ignore
+    }
+  }, [muted, getAudioCtx]);
 
   const triggerReveal = useCallback(() => {
     setRevealCount((c) => c + 1);
@@ -196,6 +254,58 @@ export function RadarPage() {
     }
     wasBeforeThresholdRef.current = beforeThreshold;
   }, [waveProgress, dist, inRange, scaleKm, triggerReveal]);
+
+  // Confettis générés une seule fois (positions/couleurs aléatoires)
+  const confettiPieces = useMemo(() => {
+    const colors = ['#ffd166', '#37d67a', '#ff5c5c', '#f4f4f4', '#c94f7c'];
+    return Array.from({ length: 32 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 0.6,
+      duration: 2.4 + Math.random() * 1.6,
+      rotate: Math.random() * 360,
+      color: colors[i % colors.length],
+      size: 6 + Math.random() * 6,
+    }));
+  }, []);
+
+  // Déclenche l'ouverture du cadeau quand la cible est atteinte (une seule fois)
+  useEffect(() => {
+    if (dist === null || dist > GIFT_UNLOCK_DISTANCE_KM) return;
+    if (hasTriggeredGiftRef.current) return;
+    hasTriggeredGiftRef.current = true;
+
+    setGiftUnlocked(true);
+    setShowGiftOverlay(true);
+    try {
+      window.localStorage.setItem(GIFT_STORAGE_KEY, 'true');
+    } catch {
+      // stockage indisponible, tant pis
+    }
+    playVictoryChime();
+    const chestTimer = window.setTimeout(() => setChestOpen(true), 250);
+    return () => window.clearTimeout(chestTimer);
+  }, [dist, playVictoryChime]);
+
+  // Bloque le scroll de la page pendant que l'overlay cadeau est ouvert
+  useEffect(() => {
+    if (!showGiftOverlay) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showGiftOverlay]);
+
+  const closeGiftOverlay = useCallback(() => {
+    setShowGiftOverlay(false);
+    setChestOpen(false);
+  }, []);
+
+  const reopenGiftOverlay = useCallback(() => {
+    setShowGiftOverlay(true);
+    setChestOpen(true);
+  }, []);
 
   return (
     <div className="radar-page">
@@ -365,10 +475,226 @@ export function RadarPage() {
           40% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
           100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
         }
+
+        /* --- Badge de rappel une fois le cadeau débloqué --- */
+        .gift-banner {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0 auto 20px auto;
+          padding: 10px 20px;
+          background: linear-gradient(120deg, #ffd166, #f4a53a);
+          color: #3a2100;
+          border: none;
+          border-radius: 999px;
+          font-weight: bold;
+          cursor: pointer;
+          box-shadow: 0 6px 18px rgba(244, 165, 58, 0.4);
+        }
+
+        /* --- Overlay cadeau --- */
+        .gift-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: radial-gradient(circle at center, rgba(20, 10, 5, 0.92) 0%, rgba(0,0,0,0.96) 80%);
+          backdrop-filter: blur(2px);
+          animation: gift-fade-in 0.4s ease;
+          padding: 20px;
+        }
+        .gift-close-btn {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.3);
+          background: rgba(255,255,255,0.08);
+          color: #fff;
+          font-size: 1.1rem;
+          cursor: pointer;
+          z-index: 5;
+        }
+        .gift-confetti-layer {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        .gift-confetti-piece {
+          position: absolute;
+          top: -20px;
+          border-radius: 2px;
+          animation-name: gift-confetti-fall;
+          animation-timing-function: ease-in;
+          animation-fill-mode: forwards;
+        }
+        .gift-stage {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          max-width: 420px;
+          width: 100%;
+        }
+        .gift-glow {
+          position: absolute;
+          top: 10px;
+          width: 280px;
+          height: 280px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255, 209, 102, 0.55) 0%, rgba(255, 209, 102, 0) 70%);
+          animation: gift-glow-pulse 2.4s ease-in-out infinite;
+          pointer-events: none;
+        }
+        .gift-chest {
+          position: relative;
+          width: 140px;
+          height: 110px;
+          perspective: 600px;
+          margin-bottom: 16px;
+        }
+        .gift-chest-base {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 65px;
+          background: linear-gradient(160deg, #b5762b, #7a4a18);
+          border: 3px solid #4a2c0d;
+          border-radius: 10px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .gift-chest-band {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 18px;
+          height: 65px;
+          background: #ffd166;
+          box-shadow: 0 0 10px rgba(255,209,102,0.7);
+        }
+        .gift-chest-lid {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 46px;
+          background: linear-gradient(160deg, #d99a44, #96601f);
+          border: 3px solid #4a2c0d;
+          border-radius: 10px 10px 4px 4px;
+          transform-origin: bottom center;
+          transform: rotateX(0deg);
+          transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .gift-chest.is-open .gift-chest-lid {
+          transform: rotateX(-115deg);
+        }
+        .gift-chest-light {
+          position: absolute;
+          top: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 60px solid transparent;
+          border-right: 60px solid transparent;
+          border-bottom: 140px solid rgba(255, 236, 179, 0);
+          transition: border-bottom-color 0.6s ease 0.5s;
+          pointer-events: none;
+        }
+        .gift-chest.is-open .gift-chest-light {
+          border-bottom-color: rgba(255, 236, 179, 0.35);
+        }
+        .gift-card {
+          position: relative;
+          width: 100%;
+          background: linear-gradient(160deg, #fff8e7, #fdeecb);
+          border-radius: 18px;
+          padding: 22px 24px;
+          text-align: center;
+          box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 0 2px #ffd166 inset;
+          opacity: 0;
+          transform: translateY(16px);
+          transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+        }
+        .gift-card.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .gift-card-eyebrow {
+          font-size: 0.75rem;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: var(--color-burgundy, #8a2444);
+          font-weight: bold;
+          margin: 0 0 6px 0;
+        }
+        .gift-card-title {
+          font-family: var(--font-display);
+          font-size: 1.4rem;
+          margin: 0 0 4px 0;
+          color: #3a2100;
+        }
+        .gift-card-meta {
+          font-size: 0.9rem;
+          color: #6b4b1f;
+          margin: 2px 0;
+        }
+        .gift-card-actions {
+          margin-top: 18px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: center;
+        }
+        .gift-btn {
+          border: none;
+          border-radius: 999px;
+          padding: 10px 20px;
+          font-weight: bold;
+          cursor: pointer;
+          text-decoration: none;
+          font-size: 0.9rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .gift-btn-primary {
+          background: var(--color-burgundy, #8a2444);
+          color: #fff8e7;
+          box-shadow: 0 8px 20px rgba(138,36,68,0.4);
+        }
+        .gift-btn-secondary {
+          background: rgba(138,36,68,0.08);
+          color: var(--color-burgundy, #8a2444);
+          border: 1px solid rgba(138,36,68,0.3);
+        }
+
+        @keyframes gift-fade-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes gift-glow-pulse {
+          0%, 100% { transform: scale(0.9); opacity: 0.6; }
+          50% { transform: scale(1.05); opacity: 1; }
+        }
+        @keyframes gift-confetti-fall {
+          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(90vh) rotate(540deg); opacity: 0; }
+        }
       `}</style>
 
       <h1 className="radar-title">Radar</h1>
       <p className="radar-subtitle">Tu as trouvé l'objet ! Le radar est activé.</p>
+
+      {giftUnlocked && !showGiftOverlay && (
+        <div>
+          <button type="button" className="gift-banner" onClick={reopenGiftOverlay}>
+            🎁 Cadeau débloqué — voir mes places
+          </button>
+        </div>
+      )}
 
       {/* Debug panel */}
       <div style={{
@@ -515,6 +841,59 @@ export function RadarPage() {
           </p>
         )}
       </div>
+
+      {showGiftOverlay && (
+        <div className="gift-overlay" role="dialog" aria-modal="true" aria-label="Cadeau débloqué">
+          <button type="button" className="gift-close-btn" onClick={closeGiftOverlay} aria-label="Fermer">
+            ✕
+          </button>
+
+          <div className="gift-confetti-layer">
+            {confettiPieces.map((c) => (
+              <div
+                key={c.id}
+                className="gift-confetti-piece"
+                style={{
+                  left: `${c.left}%`,
+                  width: c.size,
+                  height: c.size * 0.4,
+                  background: c.color,
+                  animationDelay: `${c.delay}s`,
+                  animationDuration: `${c.duration}s`,
+                  transform: `rotate(${c.rotate}deg)`,
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="gift-stage">
+            <div className="gift-glow" />
+
+            <div className={`gift-chest ${chestOpen ? 'is-open' : ''}`}>
+              <div className="gift-chest-base" />
+              <div className="gift-chest-band" />
+              <div className="gift-chest-lid" />
+              <div className="gift-chest-light" />
+            </div>
+
+            <div className={`gift-card ${chestOpen ? 'is-visible' : ''}`}>
+              <p className="gift-card-eyebrow">Cadeau débloqué</p>
+              <h2 className="gift-card-title">{GIFT_EVENT_TITLE}</h2>
+              <p className="gift-card-meta">{GIFT_EVENT_DATE}</p>
+              <p className="gift-card-meta">{GIFT_EVENT_VENUE}</p>
+              <p className="gift-card-meta">{GIFT_EVENT_SEATS}</p>
+              <div className="gift-card-actions">
+                <a className="gift-btn gift-btn-primary" href={GIFT_PDF_URL} download>
+                  ⬇️ Télécharger les billets
+                </a>
+                <a className="gift-btn gift-btn-secondary" href={GIFT_PDF_URL} target="_blank" rel="noreferrer">
+                  👁️ Ouvrir en plein écran
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

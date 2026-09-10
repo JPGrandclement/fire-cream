@@ -8,6 +8,9 @@ interface LoveQuestState {
   setDailyMessageCache: (cache: { date: string; text: string }) => void;
   isVaultUnlocked: boolean;
   unlockVault: () => void;
+  showGift: boolean;
+  setShowGift: (show: boolean) => void;
+  resetRadarQuest: () => void;
 }
 
 export const useLoveQuestStore = create<LoveQuestState>()(
@@ -24,6 +27,14 @@ export const useLoveQuestStore = create<LoveQuestState>()(
       setDailyMessageCache: (cache) => set({ dailyMessageCache: cache }),
       isVaultUnlocked: false,
       unlockVault: () => set({ isVaultUnlocked: true }),
+      showGift: false,
+      setShowGift: (show: boolean) => set({ showGift: show }),
+      resetRadarQuest: () => {
+        if (typeof window !== 'undefined') {
+          window.localStorage.removeItem('radar_gift_unlocked_v1');
+        }
+        set({ showGift: false });
+      },
     }),
     {
       name: 'love-quest-storage',

@@ -1,12 +1,13 @@
 // RadarPage.tsx
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { listenToMyPosition } from '../lib/firebaseService';
+import { useLoveQuestStore } from '../store/useLoveQuestStore';
 
 /* ---------- Configuration du cadeau ---------- */
 // Le PDF vit dans le dossier public du site, exactement comme tes images
 // (ex: /public/documents/... ou le dossier où atterrissent déjà tes assets).
 // Adapte simplement ce chemin à ton arborescence réelle.
-const GIFT_PDF_URL = '/documents/billets-nawell-madani.pdf';
+const GIFT_PDF_URL = '/fire-cream/documents/billets-nawell-madani.pdf';
 const GIFT_EVENT_TITLE = 'Nawell Madani — Tout Court';
 const GIFT_EVENT_DATE = 'Samedi 24 octobre 2026 · 20h00';
 const GIFT_EVENT_VENUE = 'Casino de Paris';
@@ -65,6 +66,7 @@ const WAVE_PERIOD_MS = 3200;
 type LatLng = { lat: number; lng: number };
 
 export function RadarPage() {
+  const { showGift } = useLoveQuestStore();
   const [visitorPos, setVisitorPos] = useState<LatLng | null>(null); // toi, au centre
   const [targetPos, setTargetPos] = useState<LatLng | null>(null); // ta position perso stockée sur Firebase
   const [accuracy, setAccuracy] = useState<number | null>(null); // précision GPS en mètres
@@ -688,7 +690,7 @@ export function RadarPage() {
       <h1 className="radar-title">Radar</h1>
       <p className="radar-subtitle">Tu as trouvé l'objet ! Le radar est activé.</p>
 
-      {giftUnlocked && !showGiftOverlay && (
+      {showGift && giftUnlocked && !showGiftOverlay && (
         <div>
           <button type="button" className="gift-banner" onClick={reopenGiftOverlay}>
             🎁 Cadeau débloqué — voir mes places
@@ -877,7 +879,9 @@ export function RadarPage() {
             </div>
 
             <div className={`gift-card ${chestOpen ? 'is-visible' : ''}`}>
-              <p className="gift-card-eyebrow">Cadeau débloqué</p>
+              <p className="gift-card-eyebrow">Bravo amour !</p>
+              <p className="gift-card-eyebrow">Tu as débloqué ton cadeau !!</p>
+              <p className="gift-card-eyebrow">Je t'aime vraiment très fort...</p>
               <h2 className="gift-card-title">{GIFT_EVENT_TITLE}</h2>
               <p className="gift-card-meta">{GIFT_EVENT_DATE}</p>
               <p className="gift-card-meta">{GIFT_EVENT_VENUE}</p>

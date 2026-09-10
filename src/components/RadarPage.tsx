@@ -721,6 +721,11 @@ export function RadarPage() {
           <p style={{ margin: 0 }}>
             <span style={{ color: '#9adfb0' }}>Position cible :</span> {targetPos ? `${targetPos.lat.toFixed(5)}, ${targetPos.lng.toFixed(5)}` : 'En attente...'}
           </p>
+          {dist !== null && (
+            <p>
+              <span style={{ color: '#9adfb0' }}>Distance exacte :</span> {dist.toFixed(3)} km
+            </p>
+          )}
         </div>
       </div>
 
@@ -840,6 +845,8 @@ export function RadarPage() {
           <p>
             Cible : {formatKm(dist)} — {compassLabel(brng)}
             {!inRange && ' — hors de portée à cette échelle'}
+            <br />
+            Distance exacte : {dist.toFixed(3)} km
           </p>
         )}
       </div>

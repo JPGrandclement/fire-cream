@@ -16,7 +16,7 @@ const GIFT_STORAGE_KEY = 'radar_gift_unlocked_v1';
 
 // Distance (en km) sous laquelle on considère la cible "atteinte".
 // 0.03 km = 30 m : à ajuster selon la précision GPS réelle des appareils visés.
-const GIFT_UNLOCK_DISTANCE_KM = 0.001;
+const GIFT_UNLOCK_DISTANCE_KM = 0.03;
 
 function readGiftUnlockedFromStorage(): boolean {
   if (typeof window === 'undefined') return false;

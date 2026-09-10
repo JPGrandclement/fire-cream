@@ -1,0 +1,1 @@
+var e=(e,t)=>navigator.geolocation?navigator.geolocation.watchPosition(e,t,{enableHighAccuracy:!0,timeout:1e4,maximumAge:0}):(t({code:0,message:`Géolocalisation non supportée`,PERMISSION_DENIED:1,POSITION_UNAVAILABLE:2,TIMEOUT:3}),0),t=e=>{navigator.geolocation.clearWatch(e)};export{t as clearWatch,e as watchPosition};
